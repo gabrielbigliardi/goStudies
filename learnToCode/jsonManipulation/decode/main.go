@@ -7,7 +7,7 @@ import (
 	"net/http"
 )
 
-type Todos struct {
+type Todo struct {
 	UserId    int    `json:"userId"`
 	Id        int    `json:"id"`
 	Title     string `json:"title"`
@@ -29,21 +29,11 @@ func main() {
 	fmt.Printf("%s\n", response.Status)
 	fmt.Printf("%T\n", response.Body)
 
-	// for key, value := range response.Header {
-	// 	fmt.Printf("Key: %s, Value: %v\n", key, value)
-	// }
-
 	if response.StatusCode == http.StatusOK {
-		// bodyBytes, err := io.ReadAll(response.Body)
-		// if err != nil {
-		// 	log.Fatal(err)
-		// }
 
-		// data := string(bodyBytes)
-		// fmt.Println(data)
-
-		todoItems := Todos{}
+		todoItems := Todo{}
 		json.NewDecoder(response.Body).Decode(&todoItems)
+		// a vantagem de usar NewDecoder é que tem alguns metodos adicionais em relacao ao Unmarshal
 
 		fmt.Printf("%+v\n", todoItems)
 
